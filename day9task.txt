@@ -1,0 +1,298 @@
+mysql> create table students(
+    -> roll_no int,
+    -> student_name varchar(20),
+    -> department varchar(15));
+Query OK, 0 rows affected (0.08 sec)
+
+mysql> desc students;
++--------------+-------------+------+-----+---------+-------+
+| Field        | Type        | Null | Key | Default | Extra |
++--------------+-------------+------+-----+---------+-------+
+| roll_no      | int         | YES  |     | NULL    |       |
+| student_name | varchar(20) | YES  |     | NULL    |       |
+| department   | varchar(15) | YES  |     | NULL    |       |
++--------------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> insert into student_profile values(1,'Nikash','cs'),(2,'abhi','it'),(3,'sathish','bca');
+ERROR 1136 (21S01): Column count doesn't match value count at row 1
+mysql> insert into students values(1,'Nikash','cs'),(2,'abhi','it'),(3,'sathish','bca');
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from students;
++---------+--------------+------------+
+| roll_no | student_name | department |
++---------+--------------+------------+
+|       1 | Nikash       | cs         |
+|       2 | abhi         | it         |
+|       3 | sathish      | bca        |
++---------+--------------+------------+
+3 rows in set (0.00 sec)
+
+mysql> insert into students values (4,'Suba','biotech'),(5,'Sanjay','Bcom');
+Query OK, 2 rows affected (0.03 sec)
+Records: 2  Duplicates: 0  Warnings: 0
+
+mysql> select * from students;
++---------+--------------+------------+
+| roll_no | student_name | department |
++---------+--------------+------------+
+|       1 | Nikash       | cs         |
+|       2 | abhi         | it         |
+|       3 | sathish      | bca        |
+|       4 | Suba         | biotech    |
+|       5 | Sanjay       | Bcom       |
++---------+--------------+------------+
+5 rows in set (0.00 sec)
+
+mysql> update students set course_fee='36500' where rollno='1'
+    -> ;
+ERROR 1054 (42S22): Unknown column 'rollno' in 'where clause'
+mysql> update students set course_fee='36500' where rollno='1';
+ERROR 1054 (42S22): Unknown column 'rollno' in 'where clause'
+mysql> update students set course_fee='36500' where roll_no='1';
+ERROR 1054 (42S22): Unknown column 'course_fee' in 'field list'
+mysql> alter table students add column course_fee int;
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from students;
++---------+--------------+------------+------------+
+| roll_no | student_name | department | course_fee |
++---------+--------------+------------+------------+
+|       1 | Nikash       | cs         |       NULL |
+|       2 | abhi         | it         |       NULL |
+|       3 | sathish      | bca        |       NULL |
+|       4 | Suba         | biotech    |       NULL |
+|       5 | Sanjay       | Bcom       |       NULL |
++---------+--------------+------------+------------+
+5 rows in set (0.00 sec)
+
+mysql> update students set course_fee='36500' where rollno='1';
+ERROR 1054 (42S22): Unknown column 'rollno' in 'where clause'
+mysql> update students set course_fee=36500 where rollno=1;
+ERROR 1054 (42S22): Unknown column 'rollno' in 'where clause'
+mysql> update students set course_fee=36500 where roll_no=';
+    '> ';
+ERROR 1292 (22007): Truncated incorrect DOUBLE value: ';
+'
+mysql> update students set course_fee=36500 where roll_no=1;
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> alter table students drop column course_fee;
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> create table course_details(
+    -> dept_id int,
+    -> course_name,
+    -> course_fee;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ',
+course_fee' at line 3
+mysql> create table course_details(
+    -> dept_id int,
+    -> course_name varchar(25),
+    -> course_fee int);
+Query OK, 0 rows affected (0.04 sec)
+
+mysql> select * from course_details;
+Empty set (0.00 sec)
+
+mysql> desc course_details
+    -> ;
++-------------+-------------+------+-----+---------+-------+
+| Field       | Type        | Null | Key | Default | Extra |
++-------------+-------------+------+-----+---------+-------+
+| dept_id     | int         | YES  |     | NULL    |       |
+| course_name | varchar(25) | YES  |     | NULL    |       |
+| course_fee  | int         | YES  |     | NULL    |       |
++-------------+-------------+------+-----+---------+-------+
+3 rows in set (0.00 sec)
+
+mysql> insert into course_detils values(
+    -> 1001,'cs',35500),
+    -> (2005,'it',36000),
+    -> (3008,'bca',35000),
+    -> (5006,'biotech',40000),
+    -> (6057,'bcom',36500));
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 6
+mysql> insert into course_detils values(
+    -> 1001,'cs',35500),
+    -> (2005,'it',36000),
+    -> (3008,'bca',35000),
+    -> (5006,'biotech',40000),
+    -> (6057,'bcom',36500);
+ERROR 1146 (42S02): Table 'kgcas.course_detils' doesn't exist
+mysql> insert into course_detils values(
+    -> 1001,'cs',35500),
+    -> (2005,'it',36000),
+    -> (3008,'bca',35000),
+    -> (5006,'biotech',40000),
+    -> (6057,'bcom',36500);
+ERROR 1146 (42S02): Table 'kgcas.course_detils' doesn't exist
+mysql> insert into course_details values(
+    -> 1001,'cs',35500),
+    -> (2005,'it',36000),
+    -> (3008,'bca',35000),
+    -> (5006,'biotech',40000),
+    -> (6057,'bcom',36500);
+Query OK, 5 rows affected (0.04 sec)
+Records: 5  Duplicates: 0  Warnings: 0
+
+mysql> select * from course_details;
++---------+-------------+------------+
+| dept_id | course_name | course_fee |
++---------+-------------+------------+
+|    1001 | cs          |      35500 |
+|    2005 | it          |      36000 |
+|    3008 | bca         |      35000 |
+|    5006 | biotech     |      40000 |
+|    6057 | bcom        |      36500 |
++---------+-------------+------------+
+5 rows in set (0.00 sec)
+
+mysql> alter table students drop column department;
+Query OK, 0 rows affected (0.06 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> alter table students add column dept_id int;
+Query OK, 0 rows affected (0.05 sec)
+Records: 0  Duplicates: 0  Warnings: 0
+
+mysql> select * from students;
++---------+--------------+---------+
+| roll_no | student_name | dept_id |
++---------+--------------+---------+
+|       1 | Nikash       |    NULL |
+|       2 | abhi         |    NULL |
+|       3 | sathish      |    NULL |
+|       4 | Suba         |    NULL |
+|       5 | Sanjay       |    NULL |
++---------+--------------+---------+
+5 rows in set (0.00 sec)
+
+mysql> update students set dept_id=1001 where roll_no=1;
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from students;
++---------+--------------+---------+
+| roll_no | student_name | dept_id |
++---------+--------------+---------+
+|       1 | Nikash       |    1001 |
+|       2 | abhi         |    NULL |
+|       3 | sathish      |    NULL |
+|       4 | Suba         |    NULL |
+|       5 | Sanjay       |    NULL |
++---------+--------------+---------+
+5 rows in set (0.00 sec)
+
+mysql> update students set dept_id=2005 where roll_no=2;
+Query OK, 1 row affected (0.03 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update students set dept_id=3008 where roll_no=3;
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update students set dept_id=5006 where roll_no=4;
+Query OK, 1 row affected (0.04 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> update students set dept_id=6057 where roll_no=5;
+Query OK, 1 row affected (0.01 sec)
+Rows matched: 1  Changed: 1  Warnings: 0
+
+mysql> select * from students;
++---------+--------------+---------+
+| roll_no | student_name | dept_id |
++---------+--------------+---------+
+|       1 | Nikash       |    1001 |
+|       2 | abhi         |    2005 |
+|       3 | sathish      |    3008 |
+|       4 | Suba         |    5006 |
+|       5 | Sanjay       |    6057 |
++---------+--------------+---------+
+5 rows in set (0.00 sec)
+
+create table slibrary(
+    -> stname varchar(10),
+    -> rollno int,
+    -> dep varchar(50));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> insert into slibrary('suba',49,'it'),('sanjay',38,'it'),('nik',25,'it');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ''suba',49,'it'),('sanjay',38,'it'),('nik',25,'it')' at line 1
+mysql> insert into slibrary values('suba',49,'it'),('sanjay',38,'it'),('nik',25,'it');
+Query OK, 3 rows affected (0.01 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from slibrary;
++--------+--------+------+
+| stname | rollno | dep  |
++--------+--------+------+
+| suba   |     49 | it   |
+| sanjay |     38 | it   |
+| nik    |     25 | it   |
++--------+--------+------+
+3 rows in set (0.00 sec)
+
+mysql> create table blibrary(
+    -> bookid int,
+    -> bookname varchar(50),\
+    -> );
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near ')' at line 4
+mysql> create table blibrary(
+    -> bookid int,
+    -> bookname varchar(50),
+    -> booktype varchar(30));
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> insert into blibrary values(102030,'atomic habits','self-help category'),(11244,'War and Peace,'historical fiction'),(342441,'Ulysses','novel');
+    '>
+    '> ;
+    '> );
+    '> insert into blibrary values(102030,'atomic habits','self-help category'),(11244,'War and Peace,'historical fiction'),(342441,'Ulysses','novel');
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near 'historical fiction'),(342441,'Ulysses','novel');
+
+;
+);
+insert into blibrary valu' at line 1
+mysql> insert into blibrary values(102030,'atomic habits','self-help category'),(11244,'War and Peace','historical fiction'),(342441,'Ulysses','novel');
+Query OK, 3 rows affected (0.00 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from blibrary;
++--------+---------------+--------------------+
+| bookid | bookname      | booktype           |
++--------+---------------+--------------------+
+| 102030 | atomic habits | self-help category |
+|  11244 | War and Peace | historical fiction |
+| 342441 | Ulysses       | novel              |
++--------+---------------+--------------------+
+3 rows in set (0.00 sec)
+
+mysql> create table tlibrary(
+    -> bookid int;
+ERROR 1064 (42000): You have an error in your SQL syntax; check the manual that corresponds to your MySQL server version for the right syntax to use near '' at line 2
+mysql> create table tlibrary(
+    -> bookid int,
+    -> duedate date,
+    -> returndate date);
+Query OK, 0 rows affected (0.02 sec)
+
+mysql> insert into tlibrary values(102030,'2025-06-16','2025-06-26'),(11244,'2025-06-20','2025-06-30'),(342441,'2025-06-06','2025-06-16');
+Query OK, 3 rows affected (0.00 sec)
+Records: 3  Duplicates: 0  Warnings: 0
+
+mysql> select * from tlibrary;
++--------+------------+------------+
+| bookid | duedate    | returndate |
++--------+------------+------------+
+| 102030 | 2025-06-16 | 2025-06-26 |
+|  11244 | 2025-06-20 | 2025-06-30 |
+| 342441 | 2025-06-06 | 2025-06-16 |
++--------+------------+------------+
+3 rows in set (0.00 sec)
